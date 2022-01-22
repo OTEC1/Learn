@@ -6,7 +6,7 @@ body{
 
 
 :root, body, html{
-  background-image: linear-gradient(to top right,#1f505f, #07091C);
+  background-image: linear-gradient(to top right,#ffffff, #b5b5b8);
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }

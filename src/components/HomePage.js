@@ -16,6 +16,7 @@ import { BiBookReader, BiNetworkChart } from 'react-icons/bi';
 
 const  HomePage = (props) => {
 
+    document.title ="Network Programming 🚀💥";
 
 
     const [list, setList] = useState([]);
@@ -59,6 +60,11 @@ const  HomePage = (props) => {
          }
 
 
+
+    const  sendPop = (e) => {
+        history('/tabs/'+e.replaceAll(" ","_"))
+    }
+
     return(
         <>
         <LeftDiv>
@@ -75,9 +81,12 @@ const  HomePage = (props) => {
 
                 {tablist.length > 0 ? (
                     tablist.map((v,i) =>  
-                    <Contain>
+                    i !== 0 ? (
+                    <Contain onClick={(e) => sendPop(v)}>
                       <BiBookReader/> &nbsp; {v}  
                     </Contain>
+                     ):
+                     (<p></p>)
                     )
                 ): (
                     <p>Loading...</p>
@@ -88,36 +97,34 @@ const  HomePage = (props) => {
 
 
         <CurvedSlider>
-        {list.length > 0 ? (
-               <Slider duration={3500} autoplay={1} previousButton={<RiArrowLeftCircleLine color="red"/>} nextButton={<RiArrowRightCircleLine color="red"/>}>
-                          {list.map((v, i) => 
-                               v.img_url ?
-                            <div key={i}  onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
-                                 <h5>
-                                    {v.writeup.length > 120 ? v.writeup.substring(0,120) +"... Read more" : v.writeup}
-                                  </h5>
-                                 <img alt={v.title}  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}  />
-                                 
-                            </div>
-                            :<p></p>
-                          )}
-                </Slider>
-             ):<p></p>}
+            {list.length > 0 ? (
+                <Slider duration={3500} autoplay={1} previousButton={<RiArrowLeftCircleLine color="red"/>} nextButton={<RiArrowRightCircleLine color="red"/>}>
+                            {list.map((v, i) => 
+                                v.img_url ?
+                                <div key={i}  onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
+                                    <h5>
+                                        {v.writeup.length > 120 ? v.writeup.substring(0,120) +"... Read more" : v.writeup}
+                                    </h5>
+                                    <img alt={v.title}  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}  />
+                                    
+                                </div>
+                                :<p></p>
+                            )}
+                    </Slider>
+                ):<p></p>}
         </CurvedSlider>
 
         <Container>
-        {list.length > 0 ? (
-            list.map((v,i) =>  
-                <DaliyPost onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
-                    <img alt={v.title}  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}  />
-                    <h5>{v.writeup.length > 210 ? v.writeup.substring(0,210)+" ...Read more" : v.writeup}</h5>
-               </DaliyPost>)
-            ):<div  id='loader'>
-                    Loading...
-              </div> 
-             }
-            
-
+            {list.length > 0 ? (
+                list.map((v,i) =>  
+                    <DaliyPost onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
+                        <img alt={v.title}  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}  />
+                        <h5>{v.writeup.length > 210 ? v.writeup.substring(0,210)+" ...Read more" : v.writeup}</h5>
+                </DaliyPost>)
+                ):<div  id='loader'>
+                        Loading...
+                 </div> 
+                }
         </Container>
         </>
     )
@@ -172,6 +179,7 @@ height: 400px;
 h5{
 height: 140px;
 overflow: hidden;
+font-size:9pt;
 }
 }
 `;
@@ -196,8 +204,8 @@ margin-left:45%;
 margin-right:auto;
 top:0;
 margin-top:25%;
-border: 2px solid #f5f5f5;
-color:#f5f5f5;
+border: 2px solid #07091C;
+color:#07091C;
 display: flex;
 justify-content:center;
 text-align:center;
@@ -218,6 +226,11 @@ width: 100%;
 padding: 0px;
 margin-left:0px;
 overflow-x:hidden;
+
+::-webkit-scrollbar {
+display: none;
+}
+
 & > *:first-of-type{
 width: 100%;
 img{
@@ -284,8 +297,11 @@ box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30p
 z-index:200;
 
 @media(max-width:768px){
-margin-top:50%;
-height: 50vh;
+right: 0;
+bottom: 0;
+margin-bottom:20px;
+height: 10vh;
+margin-left:auto;
 }    
 `
 
@@ -310,7 +326,7 @@ height: auto;
 width: 100%;
 box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 z-index:200;
-background:#1f505f;
+background:#b5b5b8;
 @media(max-width:768px){
 margin-top:40px;
 }
@@ -329,6 +345,11 @@ padding: 12px;
 margin: 10px;
 justify-content:space-between;
 font-weight:700;
+
+@media(max-width:768px){
+font-size:9pt;
+padding: 8pt;
+}
 
 `;
 

@@ -8,6 +8,7 @@ import Plain from './components/Plain'
 import Readmore from './components/Readmore'
 import { postClicked } from './actions'
 import { connect } from 'react-redux';
+import Tabs from './components/Tabs';
 
 
 function App(props) {
@@ -30,7 +31,6 @@ function App(props) {
 
 
 
-    
 
           <Routes>
           <Route  path="/model/:table"  element={<Header/>}/>
@@ -41,12 +41,15 @@ function App(props) {
 
 
 
+
           <Routes>
-          <Route  path="/MeWorker/:e"  element={<Header/>}/>
+          <Route  path="/tabs/:tab"  element={<Header/>}/>
           </Routes>
           <Routes> 
-           <Route  path="/MeWorker/:e" element={<Plain/>}/>
+           <Route  path="/tabs/:tab" element={<Tabs/>}/>
           </Routes>
+
+
 
           <Routes>
           <Route  path="/readmore"  element={<Header/>}/>
@@ -56,11 +59,16 @@ function App(props) {
           </Routes>
 
 
-          
 
-          
+
+          <Routes>
+          <Route  path="/MeWorker/:e"  element={<Header/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/MeWorker/:e" element={<Plain/>}/>
+          </Routes>
+
          
-
           </Router>
     
     </div>

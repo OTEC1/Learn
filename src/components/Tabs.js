@@ -1,18 +1,42 @@
-import { useEffect, useState } from "react";
-import styled  from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import React, {useState, useEffect, useRef}  from 'react'
+import {RiEye2Line, RiEyeLine, RiTimeLine}  from 'react-icons/ri'
 import { updateCount ,postClicked} from "../actions";
-import { connect } from "react-redux";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from 'styled-components'
+import {BiRocket}  from 'react-icons/bi'
+import {format} from '../actions'
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 
-const Programming = (props) => {
 
+
+const Tabs = (props) => {
+
+   
+    const {tab} = useParams();
+    const [list, setList] = useState([]);
     const history = useNavigate();
-    const {table} = useParams();
-    const [tabList, setTabList] = useState([]);
-    const [uptab, setUpTab] = useState([]);
-    
+    document.title = "NP "+tab;
+
+    useEffect(() => {
+      window.scrollTo(0,0);
+      Collector(tab);
+    },[])
+
+
+
+   function Collector(tab){
+       let e = tab.replaceAll("_"," ");
+       console.log(e);
+        axios.post(process.env.REACT_APP_TABS_LIST_POINT,{tab:e})
+                .then(res => {
+                   setList(res.data);
+                }).catch(err => {
+                    console.log(err);
+            }); 
+    }
+
 
 
     const ReadMore = (e) => {
@@ -21,76 +45,16 @@ const Programming = (props) => {
                 updateCount(e.doc_id);
     }
 
-             
-
-    useEffect(() => {
-        window.scrollTo(0,0);
-        setTabList([]);
-        checkNavTab();
-        apicall1();
-    },[table])
-
-
-function checkNavTab(){
-    let indexCount;
-
-    if(table == "Programming")
-        indexCount = 2;
-   else
-       if(table === "Networking")
-          indexCount = 3;
-   else
-         indexCount = 4;
-
-    apicall2(indexCount);
-}
-
-
-
-    function apicall1(){
-        axios.post(process.env.REACT_APP_GET_BY_CATEGORY_POST_END_POINT,{category:table.replace("-"," ")})
-        .then(res => {
-            setTabList(res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
-
-    function apicall2(index){
-        axios.post(process.env.REACT_APP_DYNAMIC_LIST_POINT,{views:index})
-        .then(res => {
-            setUpTab(res.data);
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
-
-
-    const  sendPop = (e) => {
-        history('/tabs/'+e.replaceAll(" ","_"))
-    }
-
 
     return (
         <Container>
             <TopNav> 
-                {uptab.map((v,i) =>
-                 <Navs onClick={(e) => sendPop(v)}>
-                     {i !== 0 ?
-                      <h5>{v}</h5>
-                      :
-                      <p></p>
-                    }
-                 </Navs>
-                 )}
+               
             </TopNav>
 
             <TopicsHolder>
-                {tabList.length > 0 ? (
-                    tabList.map((v,i) => 
+                {list.length > 0 ? (
+                    list.map((v,i) => 
                         <Topic  onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
                                 <img src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url} />
                                 <div>
@@ -255,4 +219,4 @@ const mapStateToProps =  (dispatch) => {
        Last:(payload) =>  dispatch(postClicked(payload)),
    })
    
-   export default connect(mapStateToProps,mapDispatchToProps)(Programming)
+   export default connect(mapStateToProps,mapDispatchToProps)(Tabs)

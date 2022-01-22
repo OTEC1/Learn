@@ -174,7 +174,6 @@ const Postmodel = (props) => {
             img_url: img_format ? img_format: '',
             views: 0,
             video_url: vid_format ? vid_format : '',
-            timestamp: new Date().getTime(),
             date_time: new Date().toLocaleString(),
             youtubeLink: file5 ? file5 : '',       
             category: category,

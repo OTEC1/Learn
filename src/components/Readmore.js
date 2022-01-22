@@ -11,7 +11,7 @@ import {format} from '../actions'
 
 const Readmore = (props) => {
 
-    document.title = props.post.title;
+    document.title ="NP "+ props.post.title;
     
     useEffect(() => {
       window.scrollTo(0,0);
@@ -62,10 +62,10 @@ const Readmore = (props) => {
                 </div>
                   
 
-                : props.post.writeup.length > 200 ?
+                : props.post.writeup.length > 200  ?
                 <div>
                   {props.post.writeup.substring(0,200)}
-                   <Ad>
+                    <Ad>
 
                     </Ad>
                 </div> 
@@ -108,6 +108,7 @@ const Container = styled.div`
 width: 65%;
 margin-left:auto;
 margin-right:auto;
+margin-top:120px;
 img{
 width: 70%;
 height: 400px;
@@ -128,11 +129,13 @@ width:100%;
 
 
 const HeaderPage = styled.div`
+position: fixed;
 height: 15vh;
 width: 100%;
 box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-margin-top:10px;
 margin-bottom:10px;
+z-index:200;
+background: #b5b5b8;
 `;
 
 
@@ -160,7 +163,7 @@ padding: 10px;
 word-wrap: break-word;
 white-space: pre-wrap;
 font-family: Consolas,monospace;
-color:#fff;
+color:#07091C;
 
 @media(max-width:768px){
 width: 97%;
@@ -201,14 +204,14 @@ width: 70%;
 
 div{
 padding: 10px;
-color:#fff;
+color:#07091C;
 display: flex;
 align-items:center;
 font-family: "Poppins", sans-serif;
 
   
 #startPin{
-color:#f5f5f5;
+color:#07091C;
 font-size:20pt;
 margin-right:7px;
 }
@@ -219,7 +222,7 @@ margin-right:7px;
 }
 
 #viewPin{
-color:#f5f5f5;
+color:#07091C;
 font-size:20pt;
 margin-right:7px;
 }
@@ -239,7 +242,7 @@ width: 70%;
 height: 50px;
 font-family: "Poppins", sans-serif;
 font-weight:600;
-color: #f5f5f5;
+color: #07091C;
 
 @media(max-width:768px){
 margin-left:10px;
