@@ -161,13 +161,16 @@ font-family: "Poppins", sans-serif;
 @media(max-width:768px){
 width: 100%;
 margin-left:0px;
-margin-top:90px;
-height: 405px;
-clip-path: ellipse(123% 100% at 50.73% 0%);
+margin-top:120px;
+height: 315px;
+clip-path: ellipse(93% 100% at 49.14% 0%);
 
+img{
+height: 400px;
+}
 
 h5{
-height: 200px;
+height: 140px;
 overflow: hidden;
 }
 }

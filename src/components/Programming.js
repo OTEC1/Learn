@@ -35,10 +35,10 @@ function checkNavTab(){
     let indexCount;
 
     if(table == "Programming")
-        indexCount = 3;
+        indexCount = 2;
    else
        if(table === "Networking")
-          indexCount = 2;
+          indexCount = 3;
    else
          indexCount = 4;
 
@@ -152,7 +152,9 @@ overflow-y: scroll;
 display: none;
 }
 
-
+@media(max-width:768px){
+margin-top:30px;
+}
 `;
 
 const Navs = styled.div`
@@ -168,6 +170,7 @@ border-radius:10px;
 margin-left: 20px;
 margin-top:7px;
 cursor: pointer;
+white-space: nowrap;
 
 
 
@@ -189,6 +192,8 @@ margin-top:20px;
 
 @media(max-width:768px){
 flex-wrap:wrap;
+width: 100%;
+margin-left:0px;
 }
 `;
 
@@ -215,6 +220,19 @@ font-weight:600;
 padding: 5px;
 font-size:9pt;
 }
+
+
+@media(max-width:768px){
+width: 100%;
+border-radius:8px;
+
+
+img{
+width: 100%;
+border-radius:8px;
+}
+}
+
 `;
 
 
