@@ -163,7 +163,7 @@ padding: 10px;
 word-wrap: break-word;
 white-space: pre-wrap;
 font-family: Consolas,monospace;
-color:#07091C;
+color:#f5f5f5;
 
 @media(max-width:768px){
 width: 97%;
@@ -204,14 +204,14 @@ width: 70%;
 
 div{
 padding: 10px;
-color:#07091C;
+color:#f5f5f5;
 display: flex;
 align-items:center;
 font-family: "Poppins", sans-serif;
 
   
 #startPin{
-color:#07091C;
+color:#f5f5f5;
 font-size:20pt;
 margin-right:7px;
 }
@@ -222,7 +222,7 @@ margin-right:7px;
 }
 
 #viewPin{
-color:#07091C;
+color:#f5f5f5;
 font-size:20pt;
 margin-right:7px;
 }
@@ -242,7 +242,7 @@ width: 70%;
 height: 50px;
 font-family: "Poppins", sans-serif;
 font-weight:600;
-color: #07091C;
+color: #fff;
 
 @media(max-width:768px){
 margin-left:10px;

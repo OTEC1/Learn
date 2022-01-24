@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter as  Router,Route, Routes}  from 'react-router-dom';
 import Header from './components/Header'
 import HomePage from './components/HomePage'
-import Programming from './components/Programming'
+import Model from './components/Model'
 import Plain from './components/Plain'
 import Readmore from './components/Readmore'
 import { postClicked } from './actions'
@@ -33,10 +33,10 @@ function App(props) {
 
 
           <Routes>
-          <Route  path="/model/:table"  element={<Header/>}/>
+           <Route  path="/model/:table"  element={<Header/>}/>
           </Routes>
           <Routes> 
-           <Route  path="/model/:table" element={<Programming/>}/>
+           <Route  path="/model/:table" element={<Model/>}/>
           </Routes>
 
 

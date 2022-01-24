@@ -130,8 +130,8 @@ margin-left:45%;
 margin-right:auto;
 top:0;
 margin-top:25%;
-border: 2px solid #07091C;
-color:#07091C;
+border: 2px solid #f5f5f5;
+color:#f5f5f5;
 display: flex;
 justify-content:center;
 text-align:center;
@@ -226,6 +226,7 @@ font-family: "Poppins", sans-serif;
 font-weight:600;
 padding: 5px;
 font-size:9pt;
+color:#f5f5f5;
 }
 
 
