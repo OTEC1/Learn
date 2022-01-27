@@ -1,6 +1,8 @@
+import {useEffect} from 'react'
 import styled from 'styled-components'
 import {RiComputerLine, RiMenu3Fill, RiPlug2Line, RiStackOverflowLine} from 'react-icons/ri'
-import {useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 
@@ -11,6 +13,29 @@ const  Header = (props) => {
 
 
     let history = useNavigate();
+
+
+    useEffect(() => {
+        if(sessionStorage.getItem("visitCount") === null) {
+             sessionStorage.setItem("visitCount","visited");  
+             UPDATE();
+         }
+         window.addEventListener("beforeunload", (ev) => {  
+            sessionStorage.setItem("visitCount",null);
+         });
+           
+        },[])
+
+
+ function UPDATE(){
+   axios.post(process.env.REACT_APP_VISIT_COUNT,{count:1})
+         .then(res => {
+             console.log(res.data.message,"Here")
+         }).catch(err => {
+             console.log(err);
+         })
+ }
+
 
 
     const Programming = (e) => {
