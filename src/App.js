@@ -9,6 +9,10 @@ import Readmore from './components/Readmore'
 import { postClicked } from './actions'
 import { connect } from 'react-redux';
 import Tabs from './components/Tabs';
+import SearchResult from './components/SearchResult'
+import Footer from './components/Footer'
+import About from './components/About'
+import Connect from './components/Connect'
 
 
 function App(props) {
@@ -28,6 +32,9 @@ function App(props) {
           <Routes> 
            <Route  path="/" element={<HomePage/>}/>
           </Routes>
+          <Routes> 
+           <Route  path="/" element={<Footer/>}/>
+          </Routes>
 
 
 
@@ -38,7 +45,9 @@ function App(props) {
           <Routes> 
            <Route  path="/model/:table" element={<Model/>}/>
           </Routes>
-
+          <Routes> 
+           <Route  path="/model/:table" element={<Footer/>}/>
+          </Routes>
 
 
 
@@ -47,6 +56,9 @@ function App(props) {
           </Routes>
           <Routes> 
            <Route  path="/tabs/:tab" element={<Tabs/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/tabs/:tab" element={<Footer/>}/>
           </Routes>
 
 
@@ -57,8 +69,25 @@ function App(props) {
           <Routes> 
            <Route  path="/readmore" element={<Readmore/>}/>
           </Routes>
+          <Routes> 
+           <Route  path="/readmore" element={<Footer/>}/>
+          </Routes>
 
 
+
+
+          <Routes>
+          <Route  path="/homequery"  element={<Header/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/homequery" element={<SearchResult/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/homequery" element={<Footer/>}/>
+          </Routes>
+
+
+          
 
 
           <Routes>
@@ -67,8 +96,27 @@ function App(props) {
           <Routes> 
            <Route  path="/MeWorker/:e" element={<Plain/>}/>
           </Routes>
+          <Routes> 
+           <Route  path="/MeWorker/:e" element={<Footer/>}/>
+          </Routes>
 
          
+          <Routes>
+          <Route  path="/about/:i1/i2"  element={<Header/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/about/:i1/:i2" element={<About/>}/>
+          </Routes>
+
+
+          <Routes>
+          <Route  path="/contact/:i1/:i2"  element={<Header/>}/>
+          </Routes>
+          <Routes> 
+           <Route  path="/contact/:i1/:i2" element={<Connect/>}/>
+          </Routes>
+
+
           </Router>
     
     </div>

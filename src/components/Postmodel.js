@@ -39,6 +39,7 @@ const bucket = new AWS.S3({
 const Postmodel = (props) => {
 
     
+    const [list, setlist] = useState(["Topic Section","Programming","Networking","How to","Home Tabs"]);
     const [editorText1, setEditorText1] = useState("");
     const [editorText2, setEditorText2] = useState("");
     const [shareImage, setShareImage] = useState('');
@@ -53,13 +54,12 @@ const Postmodel = (props) => {
     const [orin, setOrin] = useState('');
     const [exifR, setexifR] = useState(0);
     const [sublist, setSublist] = useState([]);
+    const [second, setsecond] = useState(false);
     const videoElem = useRef();
     const imgRef = useRef();
+    const send = useNavigate();
     let img_format,vid_format;
     
-
-    let list = ["Topic Section","Programming","Networking","How to","Home Tabs"]
-   
 
 
     const  handle = async (e) => {
@@ -191,7 +191,7 @@ const Postmodel = (props) => {
             }).catch(err => {
                 console.log(err); 
             })
-       
+        
 
      }
 
@@ -301,9 +301,8 @@ const Postmodel = (props) => {
     }
 
 
+ 
 
-    
-    const send = useNavigate();
     const reset =  (e) => {
         setEditorText1("");
         setEditorText2("");
@@ -345,45 +344,59 @@ const Postmodel = (props) => {
 
 
 
-
-    const select_1 = (e) => {
-        setCategory(e.target.value);
-
-        let errand;
-        if(e.target.value === "Programming")
-                errand = 2;
-        else
-            if(e.target.value === "Networking")
-                errand = 3;
-        else
-           if(e.target.value === "How to")
-            errand = 4;
-        else
-            if(e.target.value === "Home Tabs")
-                    errand = 1;
-            else
-               errand = 0;
-
-        apicall2(errand)
-
+    const udpate  = (e) => {
+        if(!second){
+         setsecond(true)
+         apicall2(1);
+        }else
+          setsecond(false)
     }
+
+
 
 
 
     const select_2 = (e) => {
         setTab(e.target.value);
     }
-   
 
 
+
+    const select_1 = (e) => {
+        if(!second){
+            setCategory(e.target.value);
+            let errand;
+            if(e.target.value === "Programming")
+                    errand = 2;
+            else
+                if(e.target.value === "Networking")
+                    errand = 3;
+            else
+            if(e.target.value === "How to")
+                errand = 4;
+            else
+                if(e.target.value === "Home Tabs")
+                        errand = 1;
+                else
+                errand = 0;
+
+            apicall2(errand)
+        }else{
+            setTab(e.target.value);
+            setCategory(e.target.value);
+        }
+
+    }
+  
     
     function apicall2(index){
-        axios.post(process.env.REACT_APP_DYNAMIC_LIST_POINT,{views:index})
-        .then(res => {
-            setSublist(res.data);
-        }).catch(err => {
-            console.log(err);
-        })
+            axios.post(process.env.REACT_APP_DYNAMIC_LIST_POINT,{views:index})
+            .then(res => {
+                setlist(res.data);
+                console.log(res.data);
+            }).catch(err => {
+                console.log(err);
+            });
     }
 
 
@@ -394,15 +407,14 @@ const Postmodel = (props) => {
                 <Content>
                     <Header>
                     <h2>Create a Post</h2>
-                    <button  onClick={(event) => reset("close")}>X</button>
+                    <div>
+                        <button  onClick={(event) => udpate()}>Home List</button>
+                        <button  onClick={(event) => reset("close")}>X</button>
+                    </div>
                     </Header>
 
                         <SharedContent>
-                                <UserInfo>
-                                    {/* <h5>{props.user.User ? props.user.User.email.substring(0,1).toUpperCase(): ""}</h5>
-                                    {props.user ?  <img src={props.user.photoURL ? props.user.photoURL : "images/customSignInbackground.png" } alt=""/> : <img src="/images/user.svg" alt=""/>}
-                                    <span>{props.user ? props.user.displayName ? props.user.displayName : props.user.User.email.substring(0,props.user.User.email.indexOf('@')) : "Name"}</span> */}
-                                </UserInfo>
+                                <UserInfo/>
 
                                 <Editor>
                                 <input type="text" placeholder="Post  title"  value={editorText1}  onChange={(e) => setEditorText1(e.target.value)}  autoFocus={true}/>
@@ -413,11 +425,14 @@ const Postmodel = (props) => {
                                         )}
                                     </select>
                                      <br/> <br/>
-                                    <select  onChange={(e) => select_2(e)}>
+                                     {!second ?
+                                      <select  onChange={(e) => select_2(e)}>
                                         {sublist.map((v,i) =>
                                         <option key={i}>{v}</option>
                                         )}
-                                    </select>
+                                     </select>
+                                     :""}
+                                   
 
 
                                      {space === "Pic" &&
@@ -590,8 +605,10 @@ justify-content: space-between;
 align-items:center;
 button{
 height:40px;
-width:40px;
+width:auto;
 min-width:auto;
+margin:5px;
+padding: 10px;
 }
 `;
 

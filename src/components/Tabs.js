@@ -107,7 +107,7 @@ align-items:center;
 @media(max-width:768px){
 
 #loader{
-margin-left:30%;
+margin-left:35%;
 margin-top:80%;
 }
 }

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {BiRocket}  from 'react-icons/bi'
 import {RiEye2Line, RiEyeLine, RiTimeLine}  from 'react-icons/ri'
 import {format} from '../actions'
+import Parser from 'html-react-parser'
 
 
 
@@ -53,49 +54,41 @@ const Readmore = (props) => {
             <WriteUp>
               
                 {props.post.writeup.length < 200 ? 
-
                  <div>
                   <Ad>
-
+                      ADVERTISMENT
                   </Ad>
                   {props.post.writeup}
                 </div>
                   
 
                 : props.post.writeup.length > 200  ?
-                <div>
-                  {props.post.writeup.substring(0,200)}
-                    <Ad>
+                 <div>
+                     <pre>{Parser(props.post.writeup.substring(0,props.post.writeup.indexOf(">")))}</pre>
+                      <Ad>
+                          ADVERTISMENT
+                      </Ad>
 
-                    </Ad>
-                </div> 
+                     <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">")+1,props.post.writeup.indexOf(">>")))}</pre>
+                      <Ad>
+                        ADVERTISMENT  
+                      </Ad>
+
+                      <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">>")+2,props.post.writeup.indexOf(">>>")))}</pre>
+                      <Ad>
+                        ADVERTISMENT
+                      </Ad>
+
+                        <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">>>")+3,props.post.writeup.length))}</pre>
+                        <Ad>
+                          ADVERTISMENT
+                        </Ad>
+
+                  </div> 
                  :
                  <p></p>
                  }
-                
-                
-                {props.post.writeup.length > 400 ?
-                 <div>
-                   {props.post.writeup.substring(200,500)}
-                   <Ad>
-
-                   </Ad>
-                  </div>
-                  :
                   <p></p>
-                }
-
-
-                {props.post.writeup.length > 500 ?
-                  <div>
-                   {props.post.writeup.substring(500,props.post.length)}
-                   <Ad>
-
-                   </Ad>
-                  </div>
-                  :
-                  <p></p>
-                }
             </WriteUp>
 
         </Container>
@@ -165,6 +158,18 @@ white-space: pre-wrap;
 font-family: Consolas,monospace;
 color:#f5f5f5;
 
+pre{
+word-wrap: break-word;
+height: auto;
+white-space: pre-wrap;
+font-family: Consolas,monospace;
+
+>a{
+text-decoration:none;
+color: #33ff00;
+}
+}
+
 @media(max-width:768px){
 width: 97%;
 padding: 5px;
@@ -182,9 +187,9 @@ width: 100%;
 const Ad = styled.div`
 height: 200px;
 width: 90%;
-background: #fff;
 margin-top:20px;
-margin-bottom:20px;
+text-align:center;
+color: #f5f5f5;
 
 @media(max-width:768px){
 width: 100%;

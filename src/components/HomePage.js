@@ -77,7 +77,7 @@ const  HomePage = (props) => {
 
 
         <TopMequee>
-            <Marquee speed={100}>
+            <Marquee speed={100}  gradient={false}>
 
                 {tablist.length > 0 ? (
                     tablist.map((v,i) =>  
@@ -120,7 +120,7 @@ const  HomePage = (props) => {
                     <DaliyPost onClick={(e) => ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
                         <img alt={v.title}  src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}  />
                         <h5>{v.writeup.length > 210 ? v.writeup.substring(0,210)+" ...Read more" : v.writeup}</h5>
-                </DaliyPost>)
+                    </DaliyPost>)
                 ):<div  id='loader'>
                         Loading...
                  </div> 
@@ -140,8 +140,6 @@ width: 65%;
 margin-left:60px;
 margin-top:95px;
 clip-path: ellipse(78% 100% at 51.96% 0%);
-
-
 
 img{
 height: 400px;
@@ -177,9 +175,11 @@ height: 400px;
 }
 
 h5{
-height: 140px;
+height: 155px;
 overflow: hidden;
 font-size:9pt;
+padding: 15px;
+margin-top:0px;
 }
 }
 `;
@@ -241,7 +241,7 @@ height: 70%;
 
 
 #loader{
-margin-left:40%;
+margin-left:35%;
 margin-top:80%;
 }
 
@@ -282,6 +282,8 @@ color:#f5f5f5;
 
 @media(max-width:768px){
 width:95%;
+
+
 }
 
 `;
@@ -325,9 +327,8 @@ const TopMequee = styled.div`
 position: fixed;
 height: auto;
 width: 100%;
-box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 z-index:200;
-background:#b5b5b8;
+background-image: linear-gradient(to top right,#162343, #02041a);
 @media(max-width:768px){
 margin-top:40px;
 }
