@@ -8,25 +8,25 @@ import Postmodel from './Postmodel';
 const Plan = (props) => {
 
 
-    const [showModel, setShowModel] = useState("close");
+    const [showModel, setShowModel] = useState("c");
     let {e} = useParams();
-    console.log(e,"Here");
+
     const redirectUser = (e) => {
         e.preventDefault();
 
         //if(props.user){}
 
             switch(showModel){
-                case "open":
-                    setShowModel("close");
+                case "o":
+                    setShowModel("c");
                     break;
 
                 case "close":
-                    setShowModel("open");
+                    setShowModel("o");
                 break;
 
                 default:
-                    setShowModel("close");
+                    setShowModel("c");
                     break;
                 }
         

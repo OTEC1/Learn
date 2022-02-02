@@ -1,11 +1,4 @@
-
-
-
-export  let  data =
-[
-{
-id:0,
-text:""
+export function  datas(){ 
+return   ["Topic Section","Programming","Networking","How to","Home Tabs"];
 }
-]
 

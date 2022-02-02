@@ -10,6 +10,7 @@ import {v4 as uuid4}  from 'uuid';
 import EXIF from 'exif-js'
 import { useNavigate, useParams } from 'react-router-dom';
 import {useNavigator} from 'react-router-dom'
+import {datas} from '../FontEndDB/WriteUps'
 //import {connect} from "react-redux";
 
 
@@ -39,7 +40,8 @@ const bucket = new AWS.S3({
 const Postmodel = (props) => {
 
     
-    const [list, setlist] = useState(["Topic Section","Programming","Networking","How to","Home Tabs"]);
+
+    const [list, setlist] = useState(datas);
     const [editorText1, setEditorText1] = useState("");
     const [editorText2, setEditorText2] = useState("");
     const [shareImage, setShareImage] = useState('');
@@ -348,8 +350,10 @@ const Postmodel = (props) => {
         if(!second){
          setsecond(true)
          apicall2(1);
-        }else
+        }else{
           setsecond(false)
+          setlist(datas);
+        }
     }
 
 
@@ -375,12 +379,14 @@ const Postmodel = (props) => {
             if(e.target.value === "How to")
                 errand = 4;
             else
-                if(e.target.value === "Home Tabs")
+                if(e.target.value === "Home Tabs"){
                         errand = 1;
-                else
+                        setsecond(true)
+                }else
                 errand = 0;
 
-            apicall2(errand)
+            apicall2(errand);
+
         }else{
             setTab(e.target.value);
             setCategory(e.target.value);
@@ -391,18 +397,23 @@ const Postmodel = (props) => {
     
     function apicall2(index){
             axios.post(process.env.REACT_APP_DYNAMIC_LIST_POINT,{views:index})
-            .then(res => {
-                setlist(res.data);
-                console.log(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
+                .then(res => {
+                    
+                    if(index === 1)
+                     setlist(res.data);
+                    else
+                     setSublist(res.data);
+
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                });
     }
 
 
     return(
         <>  
-        {props.showModel === "open" &&(
+        {props.showModel === "o" &&(
             <Container>
                 <Content>
                     <Header>
