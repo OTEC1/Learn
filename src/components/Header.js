@@ -4,6 +4,7 @@ import {RiComputerLine, RiMenu3Fill, RiPlug2Line, RiStackOverflowLine} from 'rea
 import {useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {RiCloseLine,RiSearch2Line} from 'react-icons/ri'
+import { TOP } from '../actions';
 
 
 
@@ -70,7 +71,7 @@ const  Header = (props) => {
         {showdrawer ? 
             <ShowDiv>
                  <div  id='mainview'>
-                     <button onClick={(e) => setshowdrawer(false)}><RiCloseLine/></button>
+                     <button onClick={(e) => { setshowdrawer(false); TOP(); } }><RiCloseLine/></button>
                         <Searchs>
                             <div>
                                 <input placeholder='Search for article,video tutorial' value={query}  onChange={(e) => setQuery(e.target.value)} />
@@ -145,7 +146,7 @@ const  Header = (props) => {
                     </div>
 
                     
-                    <RiMenu3Fill  id='drawer' size={25}  onClick={(e) => setshowdrawer(true)}/>
+                    <RiMenu3Fill  id='drawer' size={25}  onClick={(e) =>{ setshowdrawer(true); TOP(); } }/>
 
                 </NavSection>
 

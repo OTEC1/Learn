@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { RiMusicFill,RiAppsFill, RiBitCoinLine, RiSafe2Fill } from 'react-icons/ri';
+import { RiMusicFill,RiAppsFill, RiBitCoinLine, RiSafe2Fill, RiTv2Line } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 
@@ -17,9 +17,9 @@ const About = (props) => {
                     <tr>
                         <td>
                           <h5 id='div1'>
-                            <RiMusicFill size={25}/>
-                             &nbsp;&nbsp; Webflyblog helps it viewer stay current on relevant entertainment 
-                            news We are also into music promotion offer
+                            <RiTv2Line size={25}/>
+                             &nbsp;&nbsp; Networkingprogramming helps it viewer stay current with technical infomations and
+                            news and also provides article on "How to do  tips"
                           </h5>
                         </td>
                     </tr>
@@ -29,7 +29,7 @@ const About = (props) => {
                             <h5 id='div2'>
                             <RiAppsFill size={25}/>
                              &nbsp;&nbsp;
-                               Webfly business also extends to
+                             Networkingprogramming business also extends to
                                  mobile  app development
                                  and website design
                             </h5>
@@ -57,18 +57,18 @@ const About = (props) => {
                                 <RiSafe2Fill  size={25}/>
                                 &nbsp;&nbsp;
                                    
-                                The information provided by Webfly  on webfly.click
-                                is for general informational purposes only. 
+                                 The information provided by Networkingprogramming  on Networkingprogramming.info
+                                 is for general informational purposes only. 
                                  All information on the Site is provided in good faith, 
                                  however we make no representation or warranty of any kind, express or implied, 
                                  regarding the accuracy, adequacy, validity, 
-                                reliability, availability or completeness of any information on the Site 
+                                 reliability, availability or completeness of any information on the Site 
                       
 
-                                Pls note Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of
-                                the use of the website  or reliance on any information provided on the site.
+                                 Pls note Under no circumstance shall we have any liability to you for any loss or damage of any kind incurred as a result of
+                                 the use of the website  or reliance on any information provided on the site.
                                  Your use of the site   and your reliance on any information on the site is solely at your own risk.
-                                 Thanks from the team @ webfly.click 
+                                 Thanks from the team @ Networkingprogramming.info. 
                                 
                             </h5>
                         </td>

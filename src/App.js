@@ -17,9 +17,7 @@ import Connect from './components/Connect'
 
 function App(props) {
 
-  useEffect(() => {
-  
-  },[]);
+
 
   return (
     <div className="App">

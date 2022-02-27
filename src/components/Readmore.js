@@ -4,19 +4,42 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import {BiRocket}  from 'react-icons/bi'
 import {RiEye2Line, RiEyeLine, RiTimeLine}  from 'react-icons/ri'
-import {format} from '../actions'
+import {format,updateCount,postClicked,TOP} from '../actions'
 import Parser from 'html-react-parser'
+import  {MobileView, BrowserView}  from 'react-device-detect';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 const Readmore = (props) => {
 
-    document.title ="NP "+ props.post.title;
+    document.title = "NP "+ props.post.title
+    const [list, setList]= useState([]);
+    const history = useNavigate();
     
-    useEffect(() => {
-      window.scrollTo(0,0);
+    useEffect(() => { TOP();
+      axios.get(process.env.REACT_APP_GET_POST_END_POINT)
+        .then(res => {
+            setList(res.data);
+        }).catch(err => {
+          console.log(err.message)
+        });
+
     },[])
+
+
+
+    const ReadMore = (e) => {
+      TOP();
+      props.Last(e); 
+          history('/readmore');
+              updateCount(e.doc_id);
+       }
+
+
+    
 
     return(
         <>
@@ -35,7 +58,6 @@ const Readmore = (props) => {
             </HeaderSection>
          
             <MetaData>
-
               <div>
                <RiEyeLine id="viewPin"/>  {format(props.post.views)}
               </div>
@@ -47,51 +69,60 @@ const Readmore = (props) => {
               <div>
                <BiRocket id="catPin"/> {props.post.category}
               </div>
-
-              
             </MetaData>
             
-            <WriteUp>
-              
-                {props.post.writeup.length < 200 ? 
+            <WriteUp>   
                  <div>
-                  <Ad>
-                      ADVERTISMENT
-                  </Ad>
-                  {props.post.writeup}
-                </div>
-                  
-
-                : props.post.writeup.length > 200  ?
-                 <div>
-                     <pre>{Parser(props.post.writeup.substring(0,props.post.writeup.indexOf(">")))}</pre>
+                     <pre>{Parser(props.post.writeup.substring(0,props.post.writeup.indexOf("&%")))}</pre>
                       <Ad>
                           ADVERTISMENT
                       </Ad>
 
-                     <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">")+1,props.post.writeup.indexOf(">>")))}</pre>
+                     <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf("&%")+2,props.post.writeup.indexOf("&%%")))}</pre>
                       <Ad>
                         ADVERTISMENT  
                       </Ad>
 
-                      <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">>")+2,props.post.writeup.indexOf(">>>")))}</pre>
+                      <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf("&%%")+3,props.post.writeup.indexOf("&%%%")))}</pre>
                       <Ad>
                         ADVERTISMENT
                       </Ad>
 
-                        <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf(">>>")+3,props.post.writeup.length))}</pre>
+                        <pre>{Parser(props.post.writeup.substring(props.post.writeup.indexOf("&%%%")+4,props.post.writeup.length))}</pre>
                         <Ad>
                           ADVERTISMENT
                         </Ad>
 
                   </div> 
-                 :
-                 <p></p>
-                 }
-                  <p></p>
+               
             </WriteUp>
-
         </Container>
+
+        
+            <MoreContent>
+                <label>
+                You may also like
+                </label>
+                <RelatedContent>
+                        {list.map((v,i) =>
+                         v.img_url !== undefined  &&  v.doc_id !== undefined  ?
+                            <MiniContainer   onClick={(e)=>  ReadMore({img_url:v.img_url, writeup:v.writeup, category:v.category, video_url:v.video_url, date_time:v.date_time, doc_id:v.doc_id, views:v.views, title:v.title})}>
+                              <img  id="im" src={process.env.REACT_APP_APP_S3_IMAGE_BUCKET+v.img_url}/>
+                                <MobileView>
+                                <div id="up">{v.title}</div>
+                                <br/>
+                                <div id="down">{v.writeup.length > 100 ? v.writeup.substring(0,70)+" ... Read more" : v.writeup }</div>
+                                </MobileView>
+
+
+                                <BrowserView>
+                                <div id="down"> {v.writeup.length > 60 ? v.writeup.substring(0,60)+" ... Read more" : v.writeup }</div>
+                                </BrowserView>
+                              </MiniContainer>
+                         : <div></div>
+                        )}
+                </RelatedContent>
+            </MoreContent>
         </>
     )
 }
@@ -163,6 +194,19 @@ word-wrap: break-word;
 height: auto;
 white-space: pre-wrap;
 font-family: Consolas,monospace;
+
+img{
+width: 100%;
+min-width:100%;
+max-width:100%;
+height: 300px;
+min-height:300px;
+max-height:300px;
+margin-top:50px;
+margin-bottom:50px;
+object-fit:cover;
+
+}
 
 >a{
 text-decoration:none;
@@ -252,8 +296,121 @@ color: #fff;
 @media(max-width:768px){
 margin-left:10px;
 }
+`;
+
+
+
+
+
+const MoreContent = styled.div`
+width: 80%;
+height: 200px;
+text-align:center;
+padding-bottom:200px;
+label{
+color:red
+font-weight:900;
+font-size:15pt;
+color:#fff;
+font-family: "Poppins", sans-serif;
+}
+
+@media(max-width:768px){
+padding: 0px;
+width: 100%;
+min-width:100%;
+max-width:100%;
+}
 
 `;
+
+
+const RelatedContent = styled.div`
+margin-top:10px;
+width: 100%;
+height: 200px;
+padding: 5px;
+display: flex;
+flex-wrap:wrap;
+justify-content:center;
+overflow-y:scroll;
+overflow-x:hidden;
+
+
+::-webkit-scrollbar {
+display: none;
+}
+
+
+#im{
+border-radius:5px;
+width: 180px;
+height: 120px;
+clip-path: ellipse(78% 100% at 32.64% 0%);
+object-fit:cover;
+}
+
+@media(max-width:768px){
+padding: 0px;
+}
+
+
+`;
+
+
+const MiniContainer = styled.div`
+width: 180px;
+height: 170px;
+background: #fff;
+border-radius:10px;
+margin: 10px;
+
+
+#im{
+border-radius:5px;
+width: 180px;
+height: 120px;
+clip-path: ellipse(78% 100% at 32.64% 0%);
+object-fit:cover;
+}
+
+#up{
+text-align:left;
+padding: 5px;
+font-size:9pt;
+font-weight:600;
+
+}
+
+
+#down{
+text-align:left;
+padding-bottom: 10px;
+padding-left:3px;
+padding-right:3px;
+font-size:9pt;
+color: #000;
+}
+
+@media(max-width:768px){
+width: 90%;
+display: flex;
+height: 120px;
+border-radius: none;
+
+#im{
+width:150px;
+height:120px;
+clip-path:none;
+border-radius:10px 0px 0px 10px;
+min-width:150px;
+max-width:150px;
+}
+}
+
+`;
+
+
 
 
 const mapStateToProps =  (state) => {
@@ -264,7 +421,7 @@ const mapStateToProps =  (state) => {
  
  
  const mapDispatchToProps = (dispatch)  => ({
-    
+  Last:(payload) =>  dispatch(postClicked(payload)),
  })
 
 

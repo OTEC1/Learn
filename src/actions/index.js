@@ -28,6 +28,11 @@ export function updateCount(index){
 
 
 
+export function TOP() {
+window.scrollTo(0,0);
+}
+
+
 export function  format(count){
 
     let m;
