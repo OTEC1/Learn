@@ -195,6 +195,10 @@ height: auto;
 white-space: pre-wrap;
 font-family: Consolas,monospace;
 
+#nostyle{
+object-fit:contain;  
+}
+
 img{
 width: 100%;
 min-width:100%;
